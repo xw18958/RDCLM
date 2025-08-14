@@ -14,7 +14,6 @@ class Knowledge_base():
             "Hyperplasia: There is evidence of hyperplasia (increased cell proliferation) within the ductal epithelium.",
             "Lack of atypia: The cells appear relatively normal in size, shape, and arrangement.",
             "Minimal mitotic activity: There are few or no mitotic figures observed.",
-            ###augmented
             "Well-Defined Borders: Clear separation from surrounding normal tissue.",
             "Solid Growth Pattern: Tumor cells arranged in solid nests or masses.",
             "Lack of Invasion: Tumor cells confined within ductal structures.",
@@ -27,7 +26,6 @@ class Knowledge_base():
             "Epithelial Hyperplasia: Increased cell proliferation within ducts.",
             "Lack of Cellular Atypia: Normal cell size, shape, and arrangement.",
             "Minimal Mitotic Activity: Few or no dividing cells."
-            ###augmented short phrase
             "Well-Defined Borders.",
             "Clear Separation from Surrounding Tissue.",
             "Solid Growth Pattern.",
@@ -68,7 +66,6 @@ class Knowledge_base():
                 "Cellular arrangement: The tissue appears to be organized in a disorganized, infiltrative pattern.",
                 "Mitotic activity: There appears to be an increased number of mitotic figures (cells undergoing division), which is a potential indicator of malignancy.",
                 "Stroma: The stroma (connective tissue) surrounding the tumor cells may be desmoplastic, characterized by increased collagen deposition.",
-                ###augmented
                 "Disrupted Lobular Architecture: Loss of normal lobular organization.",
                 "Invasive Growth: Tumor cells breach basement membrane and infiltrate stroma.",
                 "Cellular Atypia: Abnormal cells with enlarged nuclei, prominent nucleoli, and increased mitotic activity.",
@@ -77,7 +74,6 @@ class Knowledge_base():
                 "Disorganized Cellular Arrangement: Infiltrative growth pattern.",
                 "Increased Mitotic Activity: High number of dividing cells.",
                 "Desmoplastic Stroma: Increased collagen deposition in surrounding stroma."
-                ###augmented short phrase
                 "Disrupted Lobular Architecture.",
                 "Loss of Normal Lobular Organization.",
                 "Invasive Growth.",
@@ -165,7 +161,6 @@ class Knowledge_base():
             "Stromal fibrosis: Increased fibrous tissue within the lesion, often with a dense, collagenous appearance.",
             "Eosinophilic changes: A pink, glassy appearance of the stroma due to increased eosinophilic staining.",
             "Absence of necrosis: No areas of tissue death or decay within the lesion.",
-            ###remove starting summarizations
             "Lesions have clear and distinct margins.",
             "Lesions are clearly demarcated.",
             "Increase in epithelial cells.",
@@ -177,21 +172,14 @@ class Knowledge_base():
             "Increased fibrous tissue.",
             "Pink, glassy appearance of the stroma.",
             "No tissue death.",
-            ##aug
             "Increased epithelial cells.",
             "Normal cell nuclei.",
             "No abnormal cell division.",
             "Increased cell growth in the breast tissue.",
             "No abnormal cell changes.",
-            ###from dictionary
             "Benign tumours tend to have very few dividing cells.",
             "Most benign tumours are separated from the surrounding normal tissue.",
             "non-cancerous cells",
-            ##from provided image
-            # "Lesions are clearly demarcated from the surrounding normal tissue.",
-            # "The nuclei of the cells are relatively uniform in size and shape, with minimal variation.",
-            # "The normal tissue architecture, such as glandular structures or stromal arrangement, is generally maintained, although it may be distorted or compressed.",
-            # "There are few or no mitotic figures observed, indicating a slow growth rate."
             ],
        
         "malignant_breaKHis":[
@@ -221,10 +209,8 @@ class Knowledge_base():
             "Necrosis: Tissue death is present.",
             "Lymphocytic infiltration: Immune cells are present around or within the tumor.",
             "Abnormal mitotic figures: Cell division is abnormal.",
-            ###remove starting summarizations
             "Nuclei are larger relative to the cytoplasm.",
             "Immune cells are present around or within the tumor.",
-            ##aug
             "Large, multi-nucleated cells are present.",
             "Central necrosis is surrounded by tumor cells.",
             "Large, multi-nucleated tumor cells are present.",
@@ -242,7 +228,6 @@ class Knowledge_base():
             "Central necrosis surrounded by tumor cells.",
             "Large, multinucleated tumor cells are present.",
             "Nuclei are compressed or distorted.",
-            ###from dictionary
             "malignant (cancerous) tumours tend to invade (spread) into the surrounding healthy tissue.",
             "cancerous growth of cells.",
             "malignant neoplasm.",
