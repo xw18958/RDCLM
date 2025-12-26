@@ -116,19 +116,20 @@ a:hover{ text-decoration:underline; }
 
 .section{ padding:52px 0; }
 .section.alt{ background: rgba(255,255,255,0.02); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-.section h2{ font-size:28px; margin:0 0 18px; text-align:center; }
+.section h2{ font-size:34px; margin:0 0 20px; text-align:center !important; }
 .section h3{ margin:26px 0 10px; font-size:18px; }
 .muted{ color:var(--muted); }
 
 .figure{
-  margin:18px 0 8px;
+  max-width:860px;
+  margin:18px auto 8px;
   border:1px solid var(--border);
   border-radius:18px;
   overflow:hidden;
   background:rgba(255,255,255,0.03);
   box-shadow: var(--shadow);
 }
-.figure img{ width:100%; display:block; }
+.figure img{ width:100%; display:block; max-height:460px; object-fit:contain; }
 .figure figcaption{ padding:10px 14px; color:var(--muted); font-size:13px; border-top:1px solid var(--border); }
 
 .grid2{
