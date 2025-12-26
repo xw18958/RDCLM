@@ -2,8 +2,6 @@
 
 # Retrieval-based De-noising Causal Language Modelling for Zero-Shot Tumour Malignancy Recognition  *(ECAI 2025)*
 
-🌐 **Project Page:** https://xw18958.github.io/RDCLM/
-
 [![Paper](https://img.shields.io/badge/Paper-DOI%3A10.3233%2FFAIA250860-blue)](https://doi.org/10.3233/FAIA250860)
 [![Project Page](https://img.shields.io/badge/Project-Website-brightgreen)](https://xw18958.github.io/RDCLM/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -36,7 +34,7 @@ Vision–Language Foundation Models (VLFMs) are promising for zero-shot learning
 ## Results (from the paper)
 - Improves zero-shot **retrieval precision** by ~**10% on average** across datasets.
 - Improves zero-shot **classification** by **+12.7% F1** and **+9.6% accuracy** over the second-best competitor (average).  
-  *(See paper for per-dataset results.)*
+  *(See paper for per-dataset results or 🌐 ***Project Page:*** https://xw18958.github.io/RDCLM/)*
 
 ---
 
