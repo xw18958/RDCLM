@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>RDCLM — Retrieval-based De-noising for Zero-Shot Tumour Malignancy Recognition</title>
+  <meta name="description" content="RDCLM: Retrieval-based De-noising Causal Language Modelling for zero-shot tumour malignancy recognition in histopathology."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">
+        <span class="logo">RDCLM</span>
+        <span class="tag">ECAI 2025</span>
+      </div>
+      <nav class="nav">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#resources">Resources</a>
+        <a href="#citation">Citation</a>
+      </nav>
+      <button class="hamburger" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+    </div>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="#abstract" onclick="toggleMenu()">Abstract</a>
+      <a href="#method" onclick="toggleMenu()">Method</a>
+      <a href="#results" onclick="toggleMenu()">Results</a>
+      <a href="#resources" onclick="toggleMenu()">Resources</a>
+      <a href="#citation" onclick="toggleMenu()">Citation</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Enhancing Zero-Shot Learning of Pathology Vision-Language Foundation Models in Tumour Malignancy Recognition</h1>
+        <p class="authors">
+          Xiao Wang<sup>1,3</sup> · Usman Naseem<sup>2</sup> · Jinman Kim<sup>1,3</sup>
+        </p>
+        <p class="affils">
+          <sup>1</sup>School of Computer Science, The University of Sydney ·
+          <sup>2</sup>School of Computing, Macquarie University ·
+          <sup>3</sup>University of Sydney (corresponding author)
+        </p>
+
+        <div class="cta">
+          <!-- Replace links below with your preferred targets (paper PDF, DOI page, etc.) -->
+          <a class="btn primary" href="https://github.com/xw18958/RDCLM" target="_blank" rel="noreferrer">Code</a>
+          <a class="btn" href="#citation">BibTeX</a>
+          <a class="btn" href="#results">Results</a>
+        </div>
+
+        <div class="note">
+          <strong>What is RDCLM?</strong> A retrieval-based de-noising framework that refines noisy texts retrieved by a pathology VLFM,
+          improving both zero-shot image–text retrieval and malignancy classification.
+        </div>
+      </div>
+    </section>
+
+    <section id="abstract" class="section">
+      <div class="container">
+        <h2>Abstract</h2>
+        <p>
+          Vision-Language Foundation Models (VLFMs) enable zero-shot learning via joint image–text representations, but in histopathology their
+          effectiveness is often limited by weak alignment between images and coarse-grained textual descriptions. This misalignment introduces
+          semantic noise in retrieval and degrades downstream classification. We propose <strong>Retrieval-based De-noising Causal Language Modelling (RDCLM)</strong>:
+          we (i) build a pathology-specific knowledge base of fine-grained benign/malignant descriptions using a large language model, (ii) retrieve top-k
+          candidate descriptions for a query image via a pathology VLFM, and (iii) de-noise the retrieved texts using a frozen language model with
+          multimodal token fusion. We further introduce <strong>Retrieval Negatives Replacement (RNR)</strong> and <strong>Description-wise Shuffling (DS)</strong> to improve
+          robustness and generalization. Across four histopathology datasets, RDCLM substantially improves zero-shot retrieval precision and classification
+          performance.
+        </p>
+      </div>
+    </section>
+
+    <section id="method" class="section alt">
+      <div class="container">
+        <h2>Method Overview</h2>
+
+        <figure class="figure">
+          <img src="assets/rdclm_framework.png" alt="RDCLM overall framework diagram"/>
+          <figcaption>
+            RDCLM pipeline: knowledge-base retrieval with PLIP, followed by multimodal de-noising with a frozen LM and RNR&DS augmentations.
+          </figcaption>
+        </figure>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>1) Pathology knowledge base</h3>
+            <p>
+              Use an LLM to generate malignancy-specific, fine-grained descriptions (≈300 total; balanced between benign and malignant),
+              then filter out overlapping/non-discriminative attributes.
+            </p>
+          </div>
+          <div class="card">
+            <h3>2) VLFM retrieval</h3>
+            <p>
+              Given a query H&E patch, a pathology VLFM (PLIP) retrieves the top-k most similar descriptions from the knowledge base in the shared embedding space.
+            </p>
+          </div>
+          <div class="card">
+            <h3>3) De-noising causal language modelling</h3>
+            <p>
+              A trainable image→language projector maps PLIP image features into the LM embedding space.
+              A frozen LM processes the concatenated image token and retrieved text tokens to suppress irrelevant content and retain relevant malignancy cues.
+            </p>
+          </div>
+          <div class="card">
+            <h3>4) Robustness via RNR & DS</h3>
+            <p>
+              During training, replace some retrieved negatives with randomly sampled distractors (RNR) and shuffle the order of retrieved descriptions (DS)
+              to reduce positional bias and encourage semantic reasoning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section">
+      <div class="container">
+        <h2>Results</h2>
+        <p class="muted">
+          The tables below summarise the <em>average</em> performance across CRC-HE-7K, EBHI-Seg, LC25000, and BreakHis (unseen subclasses).
+          See the paper for full per-dataset numbers and additional ablations.
+        </p>
+
+        <h3>Zero-shot image–text retrieval (Precision@k)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>P@5</th>
+                <th>P@10</th>
+                <th>P@15</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>PLIP</td><td>0.531</td><td>0.529</td><td>0.533</td></tr>
+              <tr><td>PLIP-FT</td><td>0.477</td><td>0.489</td><td>0.492</td></tr>
+              <tr><td>CLIP-A-self</td><td>0.557</td><td>0.535</td><td>0.529</td></tr>
+              <tr><td>CLIPFT+A</td><td>0.523</td><td>0.512</td><td>0.523</td></tr>
+              <tr class="best"><td><strong>RDCLM (ours)</strong></td><td><strong>0.652</strong></td><td><strong>0.658</strong></td><td><strong>0.629</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Zero-shot image classification</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>F1-score</th>
+                <th>Accuracy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>PLIP</td><td>0.584</td><td>0.496</td></tr>
+              <tr><td>ViT (PLIP backbone)</td><td>0.481</td><td>0.520</td></tr>
+              <tr><td>PLIP-FT</td><td>0.487</td><td>0.442</td></tr>
+              <tr><td>FLAN-T5-large</td><td>0.533</td><td>0.503</td></tr>
+              <tr><td>CLIP-A-self</td><td>0.581</td><td>0.471</td></tr>
+              <tr><td>CLIPFT+A</td><td>0.610</td><td>0.561</td></tr>
+              <tr><td>CaSED</td><td>0.297</td><td>0.442</td></tr>
+              <tr class="best"><td><strong>RDCLM (ours)</strong></td><td><strong>0.737</strong></td><td><strong>0.657</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <strong>Headline:</strong> RDCLM improves average retrieval precision (≈+10% absolute, depending on k) and boosts
+          average classification to <strong>73.7% F1</strong> and <strong>65.7% accuracy</strong> on unseen subclasses.
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="section alt">
+      <div class="container">
+        <h2>Resources</h2>
+        <div class="grid2">
+          <div class="card">
+            <h3>Code</h3>
+            <p><a href="https://github.com/xw18958/RDCLM" target="_blank" rel="noreferrer">github.com/xw18958/RDCLM</a></p>
+            <p class="muted">Training/inference scripts, configuration, and instructions live in the repository.</p>
+          </div>
+          <div class="card">
+            <h3>Paper</h3>
+            <p class="muted">
+              Add your preferred paper link here (publisher PDF / DOI / arXiv if available). You can also drop the PDF into this website
+              (e.g., <code>assets/paper.pdf</code>) and link it below.
+            </p>
+            <p><a href="#" onclick="alert('Replace this placeholder with your paper URL or assets/paper.pdf'); return false;">(add paper link)</a></p>
+          </div>
+          <div class="card">
+            <h3>Contact</h3>
+            <p class="muted">Questions / collaborations:</p>
+            <ul class="compact">
+              <li>Jinman Kim (corresponding): <a href="mailto:jinman.kim@sydney.edu.au">jinman.kim@sydney.edu.au</a></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>How to use this page</h3>
+            <ol class="compact">
+              <li>Copy the <code>/docs</code> folder into your repo.</li>
+              <li>Enable GitHub Pages (Settings → Pages → Deploy from branch → <code>main</code> / <code>/docs</code>).</li>
+              <li>Your site will appear at <code>https://xw18958.github.io/RDCLM</code> (or similar).</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="section">
+      <div class="container">
+        <h2>Citation</h2>
+        <p>If you find this work useful, please cite:</p>
+        <pre class="code"><code>@inproceedings{wang2025rdclm,
+  title     = {Enhancing Zero-Shot Learning of Pathology Vision-Language Foundation Models in Tumour Malignancy Recognition},
+  author    = {Wang, Xiao and Naseem, Usman and Kim, Jinman},
+  booktitle = {ECAI 2025},
+  year      = {2025},
+  doi       = {10.3233/FAIA250860}
+}</code></pre>
+
+        <p class="muted">
+          Tip: if the publisher provides a full BibTeX entry, replace the block above so it matches exactly.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-row">
+          <div>© <span id="year"></span> RDCLM</div>
+          <div class="muted">Built for GitHub Pages · Single-file static site</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="assets/site.js"></script>
+</body>
+</html>
